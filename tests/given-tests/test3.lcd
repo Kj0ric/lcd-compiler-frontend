@@ -1,0 +1,6 @@
+input X, Y, Z
+output W, U
+
+W = (X or Y) xor not Z
+U = (X and Z)
+evaluate circuit1 (X = true, Y = false, Z = false)

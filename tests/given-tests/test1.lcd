@@ -1,0 +1,5 @@
+input AHMET, BEYZA, CEM
+output DENIZ, EFE, FIGAN
+DENIZ = AHMET or BEYZA
+node = GIRAY, HUSNU, ILKKAN
+evaluate JUPITER (AHMET = true, BEYZA = true, CEM = true)

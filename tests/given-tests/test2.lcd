@@ -1,0 +1,6 @@
+input A, B, C
+
+A = (A and B) xor C
+B = (A or B) and (A xor B)
+
+evaluate X(A = true, B = true)

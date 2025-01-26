@@ -1,0 +1,8 @@
+input A, Y
+output K
+node C
+
+K = A and C
+K = A or K
+
+evaluate myCirc(A = true, Y = false)

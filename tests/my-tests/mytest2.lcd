@@ -1,0 +1,11 @@
+input input1, input2
+node node1, node2
+output output1, output2
+
+node1 = node2 xor not input2
+node2 = not input1
+output1 = input2 and node1
+output2 = node1 or not node2
+
+evaluate circuit1 (input1 = true, input2 = true, input2 = true)
+evaluate circuit2 (input2 = true, input1 = false)

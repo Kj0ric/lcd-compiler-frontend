@@ -1,0 +1,15 @@
+input input1, input2, input3              /* input3 unused */
+output output1, output2, input2, input1   /* output2 unassigned, input2 multiple declarations, input1 multiple declarations */
+node node1                          
+
+node2 = input1 xor input2           /* node2 undeclared */
+node1 = input1
+node1 = input2                      /* node1 is already assigned */                      
+output1 = input2                    
+output1 = node1                     /* output1 is already assigned */
+
+evaluate circuit1(input2 = false, input3 = true, input3 = true, output1 = false)
+/* input3 is already assigned, output1 is not an input */
+evaluate circuit2(input1 = true, input2 = false, input2 = true)
+/* input2 is already assigned, input3 is not assigned */
+

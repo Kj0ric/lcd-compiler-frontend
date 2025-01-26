@@ -1,0 +1,17 @@
+input CS305, IS
+node AN
+output AWESOME, CLASS
+
+AN = CS305 or not IS
+AWESOME = PROGRAMMING and AN
+
+evaluate LANGUAGES (CS305 = false, CS305 = true)
+evaluate LCD (CS305 = true)
+
+/* 
+ERROR at line 3: CLASS is not assigned.
+ERROR at line 6: PROGRAMMING is undeclared.
+ERROR at line 8: CS305 is already assigned.
+ERROR at line 8: IS is not assigned.
+ERROR at line 9: IS is not assigned.
+*/
