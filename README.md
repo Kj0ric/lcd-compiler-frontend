@@ -163,7 +163,7 @@ cd lcd-compiler-frontend
 
 ```bash
 # Generate lexical analyzer
-flex lcd_scanner.l
+flex lcd_scanner.flx
 
 # Generate parser
 bison -d lcd_parser.y
@@ -249,7 +249,7 @@ circuit2:output1=true,output2=true
 gcc -o lcd-compiler lex.yy.c lcd_parser.tab.c -lfl
 
 # Validate a sample circuit
-./lcd-compiler examples/sample_circuit.lcd
+./lcd-compiler tests/sample_circuit.lcd
 
 # Run multiple test cases
 for file in tests/*.lcd; do
