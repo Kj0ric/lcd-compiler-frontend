@@ -1,0 +1,97 @@
+%{
+#include <stdio.h>
+#include "harun.yilmaz-hw3.h"
+#include "harun.yilmaz-hw3.tab.h"
+
+int nestedComment = 0;
+int current_column = 1;
+%}
+
+%option yylineno
+%x COMMENT
+
+tINPUT          "input"
+tOUTPUT         "output"
+tNODE           "node"
+tEVALUATE       "evaluate"
+
+tAND            "and"
+tOR             "or"
+tXOR            "xor"
+tNOT            "not"
+tTRUE           "true"
+tFALSE          "false"
+tLPR            "("
+tRPR            ")"
+tASSIGNMENT     "="
+tCOMMA          ","
+
+tIDENTIFIER     [a-zA-Z][a-zA-Z0-9_]*
+
+tBLANK          [ \t\r]
+
+%%
+
+{tINPUT}        {current_column += yyleng; return tINPUT;}
+{tOUTPUT}       {current_column += yyleng; return tOUTPUT; }
+{tNODE}         {current_column += yyleng; return tNODE; }
+{tEVALUATE}     {current_column += yyleng; yylval.line_no = yylineno; return tEVALUATE; }
+{tAND}          {current_column += yyleng; return tAND; }
+{tOR}           {current_column += yyleng; return tOR; }
+{tNOT}          {current_column += yyleng; return tNOT; }
+{tXOR}          {current_column += yyleng; return tXOR; }
+{tTRUE}         {current_column += yyleng; return tTRUE; }
+{tFALSE}        {current_column += yyleng; return tFALSE; }
+{tLPR}          {current_column += yyleng; return tLPR; }
+{tRPR}          {current_column += yyleng; yylval.col_no = current_column; return tRPR; }
+{tASSIGNMENT}   {current_column += yyleng; return tASSIGNMENT; }
+{tCOMMA}        {current_column += yyleng; return tCOMMA; }
+
+{tIDENTIFIER}   {
+    Identifier* new_identifier = (Identifier*)malloc(sizeof(Identifier));  
+    
+    char* name = (char*)(malloc(strlen(yytext) + 1));
+    strcpy(name, yytext);
+    new_identifier->name = name;
+    new_identifier->line_no = yylineno;
+    new_identifier->type = "none";
+    new_identifier->is_used = 0;
+    new_identifier->is_assigned = 0;
+    new_identifier->column_seen = current_column;
+    new_identifier->next = NULL;
+
+    yylval.identifierPtr = new_identifier;
+    
+    current_column += yyleng;
+    return tIDENTIFIER; 
+}
+
+"/*" {
+    nestedComment++;
+    BEGIN (COMMENT);
+}
+
+<COMMENT>"/*" {
+    nestedComment++;
+}
+
+<COMMENT>"*/"       {
+    nestedComment--;
+    if (nestedComment == 0) {
+    BEGIN 0;
+    }
+}
+
+<COMMENT>.  {}  	
+<COMMENT>\n	{}
+
+[/]{2}.*    {}
+
+{tBLANK}    {}
+\n          {current_column = 1;}
+
+.           {
+    return yytext[0];
+}
+
+%%
