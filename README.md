@@ -1,5 +1,5 @@
 <h1 align="center">
-    Compiler Frontend in C for LCD Language
+    Compiler Frontend for LCD Language in C
 </h1>
 
 <div align="center">
